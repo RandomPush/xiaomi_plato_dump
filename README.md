@@ -1,0 +1,14 @@
+# missi_phone_global-user 14 UPB3.230519.014 23.7.31 release-keys
+- manufacturer: xiaomi
+- platform: commonmt6895
+- codename: plato
+- flavor: missi_phone_global-user
+- release: 14
+- id: UPB3.230519.014
+- incremental: 23.7.31
+- tags: release-keys
+- fingerprint: Xiaomi/plato_global/plato:12/SP1A.210812.016/23.7.31:user/release-keys
+- is_ab: true
+- brand: Xiaomi
+- branch: missi_phone_global-user-14-UPB3.230519.014-23.7.31-release-keys
+- repo: xiaomi_plato_dump

@@ -1,0 +1,30 @@
+# HBT binfmt_misc for 64-bit only devices
+on late-fs && property:ro.vendor.mtk.app32_boost_support=* && property:ro.vendor.mtk.hbt_binfmt_misc_support=1
+    mount binfmt_misc none /proc/sys/fs/binfmt_misc
+    write /proc/sys/fs/binfmt_misc/register ":hbt:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\xfe\xff\xff\xff:/system_ext/bin/hbt_translator:POC"
+
+# HBT zygote for 64/32-bit mixed devices
+on zygote-start && property:ro.vendor.mtk.app32_boost_support=* && property:persist.device_config.vendor_system_native.zygote_HBT=1
+    write /proc/bootprof "HBT:zygote_HBT-start"
+    start zygote_HBT
+
+service zygote_HBT /system_ext/bin/hbt_translator /system/bin/app_process32 -Xzygote /system/bin --zygote --socket-name=zygote_tertiary
+    class main
+    priority -20
+    user root
+    group root readproc reserved_disk
+    socket zygote_tertiary stream 660 root system
+    socket usap_pool_tertiary stream 660 root system
+    onrestart restart zygote
+    task_profiles ProcessCapacityHigh MaxPerformance
+    disabled
+
+on property:init.svc.zygote=restarting && property:persist.device_config.vendor_system_native.zygote_HBT=1
+    stop zygote_HBT
+    start zygote_HBT
+
+on property:sys.boot_completed=1 && property:ro.vendor.mtk.app32_boost_support=* && property:persist.device_config.vendor_system_native.zygote_HBT=0
+    stop zygote_HBT
+
+on property:sys.boot_completed=1 && property:ro.vendor.mtk.app32_boost_support=* && property:persist.device_config.vendor_system_native.zygote_HBT=1
+    start zygote_HBT
