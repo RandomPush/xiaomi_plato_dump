@@ -1,0 +1,14 @@
+# missi_phone_global-user 14 UP1A.230620.001 V14.0.6.0.ULQMIXM release-keys
+- manufacturer: xiaomi
+- platform: commonmt6895
+- codename: plato
+- flavor: missi_phone_global-user
+- release: 14
+- id: UP1A.230620.001
+- incremental: V14.0.6.0.ULQMIXM
+- tags: release-keys
+- fingerprint: Xiaomi/plato_global/plato:12/SP1A.210812.016/V14.0.6.0.ULQMIXM:user/release-keys
+- is_ab: true
+- brand: Xiaomi
+- branch: missi_phone_global-user-14-UP1A.230620.001-V14.0.6.0.ULQMIXM-release-keys
+- repo: xiaomi_plato_dump
